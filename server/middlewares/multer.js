@@ -11,7 +11,7 @@ export function uploadImage(folder) {
   });
 
   //
-  const upload = multer({ storage: storage }).array("img"); //img es el name de los inputs type="file"
+  const upload = multer({ storage: storage }).array("file"); //img es el name de los inputs type="file"
   return upload;
 }
 ;

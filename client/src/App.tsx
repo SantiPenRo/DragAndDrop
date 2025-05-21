@@ -7,8 +7,10 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 interface User {
-  name: string,
-  email: string
+  user_id:number;
+  name: string;
+  email: string;
+  images?: File[];
 }
 
 function App() {
@@ -22,12 +24,10 @@ function App() {
   useEffect(()=>{
     const fetchData = async()=>{
       try {
-        let res = await axios.get<User[]>("http://localhost:4000/api")
+        const res = await axios.get<User[]>("http://localhost:4000/api")
         setUsers(res.data);
-        setUser(res.data[0])
       } catch (error) {
         console.log(error);
-        
       }
     }
     fetchData()
@@ -44,12 +44,13 @@ function App() {
         <Row>
           <Col>
           <div className='d-flex flex-column'>
-            <FormularioCreate setUsers={setUser} users={users} />
+            <FormularioCreate setUsers={setUsers} users={users} />
+            < UsersList users={users} setUser={setUser} />
           </div>
           </Col>        
           <Col>
           <div>
-            <Info />
+            <Info user={user} setUser={setUser}/>
           </div>
           </Col>
         </Row>        
